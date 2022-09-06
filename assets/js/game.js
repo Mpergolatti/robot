@@ -1,6 +1,5 @@
 //players name, health, attack and money
 var playerName = window.prompt("what is your robots name");
-debugger;
 var playerHealth = 100;
 var playerAttack = 20;
 var playerMoney = 10;
@@ -80,6 +79,13 @@ var fight = function(enemyName) {
         } // end of while loop
     }; // end of fight function
 
+// function to start a new game
+var startGame = function() {
+  // resets player stats
+  playerHealth = 100;
+  playerAttack = 10;
+  playerMoney = 10;
+
 for(var i = 0; i < enemyNames.length; i++) {
 
     if (playerHealth > 0) {
@@ -98,5 +104,9 @@ for(var i = 0; i < enemyNames.length; i++) {
           break;
       }
     }
+      //play again
+      startGame();
 
-  // re-read 3.2.8 to understand what's happening
+  }; // end of startGame function
+
+  startGame();
