@@ -85,7 +85,6 @@ var startGame = function() {
   // resets player stats
   playerHealth = 100;
   playerAttack = 10;
-  playerMoney = 10;
 
   
   if (playerHealth > 0) {
@@ -120,14 +119,14 @@ var endGame = function() {
         window.alert("Thank you for playing Robot Gladiators! Come back soon!");
       };
     };
-    
+
     endGame();
       //play again
       // startGame();
 
   }; // end of startGame function
 
-    
   startGame();
+
 
   // 3.3.4
