@@ -1,5 +1,6 @@
 //players name, health, attack and money
 var playerName = window.prompt("what is your robots name");
+debugger;
 var playerHealth = 100;
 var playerAttack = 20;
 var playerMoney = 10;
@@ -84,18 +85,18 @@ for(var i = 0; i < enemyNames.length; i++) {
     if (playerHealth > 0) {
     window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
 
-    // pick new enemy to fight based on the index of the enemyNames array
-    var pickedEnemyName = enemyNames[i];
+      // pick new enemy to fight based on the index of the enemyNames array
+      var pickedEnemyName = enemyNames[i];
 
-    // reset enemyHealth before starting new fight
-    enemyHealth = 50;
+      // reset enemyHealth before starting new fight
+      enemyHealth = 50;
 
-    // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
-    fight(pickedEnemyName);
-    } else {
-        window.alert('You have lost your robot in battle! Game Over!');
-        break;
+      // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
+      fight(pickedEnemyName);
+      } else {
+          window.alert('You have lost your robot in battle! Game Over!');
+          break;
+      }
     }
-  }
 
   // re-read 3.2.8 to understand what's happening
