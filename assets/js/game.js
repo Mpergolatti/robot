@@ -11,10 +11,11 @@ var enemyAttack = 12;
 
 
 
-
-// creates a window alert saying the fight has begun
+  
+  
+  // creates a window alert saying the fight has begun
 var fight = function(enemyName) {
-
+    
     // repeat and execute a battle as long as robot is alive
     while(playerHealth > 0 && enemyHealth > 0) {
 
@@ -32,16 +33,18 @@ var fight = function(enemyName) {
             window.alert(playerName + " has decided to skip this fight. Goodbye!");
             
             // subtract money for skipping
-            playerMoney = playerMoney - 10;
+            playerMoney = Math.max(0, playerMoney - 10);
             console.log('playerMoney:', playerMoney);
             break;
 
         }
 
     }
-        
+        //Generate random number value based on player's attack power
+        var damage = randomNumber(playerAttack - 3, playerAttack);
+
         //Subtract the value of playerAttack from the value of enemyHealth and use that result to update the value in the enemyHealth variable
-        enemyHealth = enemyHealth - playerAttack;
+        enemyHealth = Math.max(0, enemyHealth - damage);
         
         // log a resulting message to the console so we know it worked
         console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining.");
@@ -61,9 +64,10 @@ var fight = function(enemyName) {
             } else {
                 window.alert(enemyName + " still has " + enemyHealth + " health left.");
             }
-      
+        
+        var damage = randomNumber(enemyAttack - 3, enemyAttack);
         //Subtract the value of enemyAttack from the value of playerHealth and use that result to update the value in the playerHealth variable
-        playerHealth = playerHealth - enemyAttack;
+        playerHealth = Math.max(0, playerHealth - damage);
         
         // log a resulting message to the console so we know it worked
         console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
@@ -85,6 +89,7 @@ var startGame = function() {
   playerHealth = 100;
   playerAttack = 10;
   playerMoney = 10;
+  enemyHealth = randomNumber(40, 60);
   
   
   for (var i = 0; i <enemyNames.length; i++) {
@@ -96,7 +101,7 @@ var startGame = function() {
     var pickedEnemyName = enemyNames[i];
     
     // reset enemyHealth before starting new fight
-    enemyHealth = 50;
+    enemyHealth = Math.floor(Math.random() * 21) + 40;
     
     // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
     fight(pickedEnemyName);
@@ -105,7 +110,7 @@ var startGame = function() {
     if (playerHealth > 0 && i < enemyNames.length - 1) {
 
       // ask if player wants to use the store before next round
-      var storeConfirm = window.confirm("The fight is over, vis the store before the next round?");
+      var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
 
       //if yes take them to the store() function
       if (storeConfirm) {
@@ -140,7 +145,7 @@ var endGame = function() {
       };
     };
 
-  var shop = function() {
+var shop = function() {
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
       "would you like to REFILL health, UPGRADE attack or LEAVE store? Please enter one: 'REFILL', 'UPGRADE', 'LEAVE' to make a choice."
@@ -190,6 +195,12 @@ var endGame = function() {
         } 
       };
   
+  // random number generator
+var randomNumber = function(min, max){
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+  
+    return value;
+    };
   // end of startGame function
 
   startGame();
