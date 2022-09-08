@@ -6,35 +6,40 @@ var randomNumber = function(min, max){
   
       return value;
 };
-    // end of startGame function
-    
-  // creates a window alert saying the fight has begun
+
+var fightOrSkip = function() {
+  // ask player if they'd like to fight or skip using fightOrSkip function
+  var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+
+    // conditional recursive function call
+    if (promptFight === "" || promptFight === null) {
+      window.alert("Please Enter FIGHT or SKIP to continue")
+      return fightOrSkip();
+    }
+
+    // If player picks "Skip" confirm and then stop the loop
+    if (promptFight === "skip" || promptFight === "SKIP" || promptFight === "Skip") {
+      // confirm player wants to skip
+      var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+      //if yes (true), leave fight
+      if (confirmSkip) {
+        window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+        //subtract money from playerMoney for skipping
+        playerInfo.playerMoney = playerInfo.money - 10;
+        shop();
+      }
+    }
+  }
+// the fight function
 var fight = function(enemy) {
   
   // repeat and execute a battle as long as robot is alive
   while(playerInfo.health > 0 && enemy.health > 0) {
     
-    // asks player if they want to fight or skip the battle
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? enter 'FIGHT' or 'SKIP' to choose.");
+    // This calls the #2 function fightOrSkip above the fight function
+    fightOrSkip();
     
-    // if player choses to skip
-    if (promptFight === "skip" || promptFight === "SKIP" || promptFight === "Skip") {
-      
-      // confirm player wants to skip
-      var confirmSkip = window.confirm("Are you sure you'd like to skip this fight? You will lose 10 gold");
-      
-      // if yes(true), leave fight
-      if (confirmSkip) {
-        window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-        
-        // subtract money for skipping
-        playerInfo.money = Math.max(0, playerInfo.money - 10);
-        console.log('playerInfo.money:', playerInfo.money);
-        break;
-
-      }
-      
-    }
     //Generate random number value based on player's attack power
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
     
@@ -75,13 +80,12 @@ var fight = function(enemy) {
       window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
     }
   } // end of while loop
-}; // end of fight function
+}; 
 
 // function to start a new game
 var startGame = function() {
   // resets player stats
   playerInfo.reset();
-  
   
   for (var i = 0; i < enemyInfo.length; i++) {
     
@@ -117,7 +121,7 @@ var startGame = function() {
 endGame();
 };
 
-// end of endGame function
+// endGame function start
 var endGame = function() {
   window.alert("The game has now ended. Lets see how you did!");
   
@@ -136,11 +140,13 @@ var endGame = function() {
   };
 };
 
+// shop function start
 var shop = function() {
   // ask player what they'd like to do
   var shopOptionPrompt = window.prompt(
     "would you like to REFILL health, UPGRADE attack or LEAVE store? Please enter one: 'REFILL', 'UPGRADE', 'LEAVE' to make a choice."
     );
+    debugger;
     switch(shopOptionPrompt) {
       case "REFILL":
         case "refill":
@@ -169,7 +175,8 @@ var shop = function() {
                           break;     
                         } 
 };
-                      
+
+// getPlayerName function start
 var getPlayerName = function() {
   var name = "";
 
@@ -179,9 +186,9 @@ var getPlayerName = function() {
 
   console.log("Your robot's name is " + name);
   return name;
-  };
+};
 
-
+// playerInfo start
 var playerInfo = {
   name: getPlayerName(),
   health: 100,
@@ -212,7 +219,7 @@ var playerInfo = {
 }
 };
 
-// enemies name, health and attack
+// enemyInfo start
 var enemyInfo = [
   {
     name: "Roboto",
@@ -226,10 +233,10 @@ var enemyInfo = [
       name: "Robo Trumble",
       attack: 14,
     }
-  ];
+];
   
 
 startGame();
 
 
-// 3.3.4
+// 3.5.5 
